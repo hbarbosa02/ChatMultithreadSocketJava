@@ -58,12 +58,11 @@ public class ClientMenu extends javax.swing.JFrame {
     
     public void enviarMensagem(String msg){
         try {
-            
-            if(msg.equals("Sair")){
-                bufferW.write(txt_nome.getText() + " -> Desconectado \r\n");
+            if(msg.equals("Sair") || msg == ""){
+                bufferW.write(msg+"\r\n");
                 txt_historico.append(txt_nome.getText() + " -> Desconectado \r\n");
             } else {
-                    bufferW.write(txt_nome.getText() + "->" + msg+"\r\n");
+                bufferW.write(msg+"\r\n");
                 txt_historico.append(txt_nome.getText() + " diz -> " + txt_mensagem.getText() + "\r\n");
             }
             bufferW.flush();
@@ -84,10 +83,7 @@ public class ClientMenu extends javax.swing.JFrame {
                 if(bufferR.ready())
                 {
                     msg = bufferR.readLine();
-                    if(msg.equals("Sair"))
-                        txt_historico.append("Servidor caiu! \r\n");
-                    else
-                        txt_historico.append(msg+"\r\n");
+                    txt_historico.append(msg+"\r\n");
                 }
             }
     }
@@ -95,7 +91,7 @@ public class ClientMenu extends javax.swing.JFrame {
     public void sair()
     {
         try {
-            enviarMensagem("Sair");
+            enviarMensagem("");
             bufferW.close();
             outputW.close();
             output.close();

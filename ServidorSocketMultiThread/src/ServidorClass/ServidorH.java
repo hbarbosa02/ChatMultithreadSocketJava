@@ -89,11 +89,11 @@ public class ServidorH extends Thread{
             
             client.put(this.nameClient,output);
             String[] msg = input.readLine().split(":");
-            while(msg != null && !(msg[0].trim().equals(""))){
-                send(output, " wrote: ", msg);
+            while(!(msg[0].trim().equals("")) && msg != null){
+                send(output, " send: ", msg);
                 msg = input.readLine().split(":");
             } 
-            System.out.println(this.nameClient = " Left chat!" + "\r\n");
+            System.out.println(this.nameClient + " Left chat!" + "\r\n");
             String[] out = {" Of the chat!"};
             send(output," leave", out);
             remove(this.nameClient);
@@ -126,9 +126,11 @@ public class ServidorH extends Thread{
             if(chat != output){
                 if(msg.length == 1){
                     chat.println(this.nameClient + action + msg[0]);
+                    //chat.println(msg[0]);
                 } else {
                     if(msg[1].equalsIgnoreCase(client.getKey())){
                         chat.println(this.nameClient + action + msg[0]);
+                        //chat.println(msg[0]);
                         break out;
                     }
                 }
